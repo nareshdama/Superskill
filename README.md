@@ -8,9 +8,36 @@ Superskill is a repo-local module that turns skills + scenarios into:
 - retry/convergence behavior that reduces roundtrips (policy + optional `retry-plan` CLI)
 - trace + outcome logging and **human-reviewed** policy proposals (no automatic policy writes)
 
-This folder is designed to be vendored into other repos or consumed from npm.
+This folder is designed to be vendored into other repos or installed from npm. The package **[@nareshdama/superskill-policy-engine](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine)** is **published** on the public npm registry.
 
-**Repository:** [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill)
+| Where | Link |
+|-------|------|
+| **GitHub** | [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill) |
+| **npm package** | [npmjs.com/package/@nareshdama/superskill-policy-engine](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine) |
+
+[![npm version](https://img.shields.io/npm/v/@nareshdama/superskill-policy-engine.svg)](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine)
+[![Node.js](https://img.shields.io/node/v/@nareshdama/superskill-policy-engine.svg)](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine)
+
+## Install from npm
+
+```bash
+npm i @nareshdama/superskill-policy-engine
+```
+
+(`npm install @nareshdama/superskill-policy-engine` is equivalent.)
+
+Run the CLI without a global install:
+
+```bash
+npx @nareshdama/superskill-policy-engine --help
+npx @nareshdama/superskill-policy-engine compile-prompt --provider openai --environment terminal --intent implement --scenario normal
+```
+
+Import the library (Node 18+):
+
+```javascript
+import { /* see docs/PROGRAMMATIC_API.md */ } from "@nareshdama/superskill-policy-engine";
+```
 
 ## Community
 
@@ -54,9 +81,12 @@ Roadmap phases **1 through 5** are implemented at baseline: policy resolution an
 - Less hallucination (verified pointers + schema gating)
 - Maximum actionable output (structured work items)
 
-## npm
+## npm (reference)
 
-- Package name: `@nareshdama/superskill-policy-engine`
-- Binary: `superskill` (example: `npx @nareshdama/superskill-policy-engine compile-prompt ...`)
-- Smoke check: `npm run smoke` (from package root)
-- Unit tests: `npm test`
+- **Status:** Published — install with `npm i @nareshdama/superskill-policy-engine`
+- **Registry:** [npmjs.com/package/@nareshdama/superskill-policy-engine](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine)
+- **Package name:** `@nareshdama/superskill-policy-engine`
+- **Binary:** `superskill` (via `npx` or after `npm i` / `npm install`)
+- **Develop in this repo:** `npm run smoke`, `npm test` (from clone root)
+
+Publishing workflow: [`docs/PUBLISHING_NPM.md`](docs/PUBLISHING_NPM.md).

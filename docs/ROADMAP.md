@@ -6,7 +6,7 @@
 |------|--------|
 | **Phases 1–5** | **Baseline complete** — CLI, policies, runner helpers, handoff + trace, outcomes and human-reviewed proposals, tests, `validate-proposal`, [`PROGRAMMATIC_API.md`](PROGRAMMATIC_API.md). |
 | **Repository** | [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill) |
-| **npm package** | `@nareshdama/superskill-policy-engine` — see [`PUBLISHING_NPM.md`](PUBLISHING_NPM.md) |
+| **npm package** | Published: [`@nareshdama/superskill-policy-engine`](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine) (`npm i @nareshdama/superskill-policy-engine`) — [`PUBLISHING_NPM.md`](PUBLISHING_NPM.md) |
 | **Integration checks** | `npm test`, `npm run smoke` from package root |
 | **Non-goals** | No in-package model training; no silent writes to `policies/` or `superskill.yaml`; policy changes stay **human-reviewed** (PR-style). |
 

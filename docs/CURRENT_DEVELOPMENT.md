@@ -1,6 +1,6 @@
 # Current development
 
-This file is the **implementation snapshot** for the Superskill policy engine: what exists in the repo *today*, grouped by roadmap phase. For **planned work**, see [`ROADMAP.md`](ROADMAP.md) (snapshot table + future scope). **Source:** [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill).
+This file is the **implementation snapshot** for the Superskill policy engine: what exists in the repo *today*, grouped by roadmap phase. For **planned work**, see [`ROADMAP.md`](ROADMAP.md) (snapshot table + future scope). **Source:** [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill). The same code ships to npm as **`@nareshdama/superskill-policy-engine`** — install with `npm i @nareshdama/superskill-policy-engine`.
 
 ## Documentation set (current)
 

@@ -1,5 +1,7 @@
 # Programmatic API (embedders)
 
+Install the published package from npm: `npm i @nareshdama/superskill-policy-engine`.
+
 Import from the package root or `./lib` (see [`package.json`](../package.json) `exports`):
 
 ```javascript

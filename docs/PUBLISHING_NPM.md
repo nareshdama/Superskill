@@ -2,6 +2,14 @@
 
 This module can be published as an npm package.
 
+**Public package page (users):** [npmjs.com/package/@nareshdama/superskill-policy-engine](https://www.npmjs.com/package/@nareshdama/superskill-policy-engine)
+
+The package is **published**. Install in another project:
+
+```bash
+npm i @nareshdama/superskill-policy-engine
+```
+
 ## Checklist
 
 - Run `npm test` and `npm run smoke` from the package root before publishing.

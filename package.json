@@ -4,6 +4,14 @@
   "description": "Policy engine + handoff schema for multi-agent IDE/terminal workflows.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nareshdama/Superskill.git"
+  },
+  "homepage": "https://www.npmjs.com/package/@nareshdama/superskill-policy-engine",
+  "bugs": {
+    "url": "https://github.com/nareshdama/Superskill/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
