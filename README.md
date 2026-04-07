@@ -6,31 +6,47 @@ Superskill is a repo-local module that turns skills + scenarios into:
 - output contracts (low narration, high signal)
 - a strict agent-to-agent handoff packet (schema-validated)
 - retry/convergence behavior that reduces roundtrips (policy + optional `retry-plan` CLI)
+- trace + outcome logging and **human-reviewed** policy proposals (no automatic policy writes)
 
-This folder is designed to be vendored into other repos.
+This folder is designed to be vendored into other repos or consumed from npm.
+
+**Repository:** [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill)
+
+## Community
+
+| Resource | Purpose |
+|----------|---------|
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Git workflow, dev setup, PR checklist |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Community standards ([Contributor Covenant](https://www.contributor-covenant.org/) 2.1) |
+| [SECURITY.md](SECURITY.md) | How to report vulnerabilities privately |
+| [Issues](https://github.com/nareshdama/Superskill/issues) | Bugs and feature discussion |
 
 ## Entry points
 
 - Config: `superskill.yaml` (at repo root when using this package directly)
 - Policies: `policies/`
-- Schema: `schemas/handoff-schema.json`
-- Docs: `docs/` (Phase 4 workflow: `docs/PHASE4_WORKFLOW.md`)
-- CLI: `cli/src/index.mjs` (see `cli/README.md`)
+- Schemas: `schemas/` (handoff, trace line, outcome line, proposal file, …)
+- Docs: `docs/` — start with [`docs/CURRENT_DEVELOPMENT.md`](docs/CURRENT_DEVELOPMENT.md) and [`docs/ROADMAP.md`](docs/ROADMAP.md)
+- CLI: `cli/src/index.mjs` (see [`cli/README.md`](cli/README.md))
 
-## Phase 1 (complete) vs Phase 2
+## Current status (Phases 1–5 baseline)
 
-**Phase 1 — Policy engine MVP** is implemented: the CLI loads `superskill.yaml`, runs `resolve` (temperature + output contract + handoff flags), `validate-handoff`, `route`, plus `compile-prompt` and `write-handoff`. See `docs/ROADMAP.md`.
+Roadmap phases **1 through 5** are implemented at baseline: policy resolution and prompts; runner-facing validation (`validate-output`, `validate-tool-args`, `retry-plan`, `runner-dry-run`); handoff + trace (`read-handoff`, `trace-append`, `trace-tail`); Phase 4 outcomes and `outcomes-report` / proposal artifacts; tests, [`docs/PROGRAMMATIC_API.md`](docs/PROGRAMMATIC_API.md), and `validate-proposal`. The CLI does **not** call model APIs — runners own transport and keys.
 
-**Phase 2** adds deeper runner integration (model output validation, tool blocking, orchestration). The `retry-plan` command is a Phase 2-oriented helper that reads `policies/retry-policy.yaml`.
+**Next steps and out-of-scope items** are listed under **Future development scope** in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
-## Docs
+## Docs (current set)
 
-- Current development: `docs/CURRENT_DEVELOPMENT.md`
-- Roadmap: `docs/ROADMAP.md`
-- Handoff protocol: `docs/HANDOFF_PROTOCOL.md`
-- Temperature layer: `docs/TEMPERATURE_LAYER.md`
-- Policy change playbook (methodology + `resources/skills/`): `docs/POLICY_CHANGE_PLAYBOOK.md`
-- Programmatic API (embedders): `docs/PROGRAMMATIC_API.md`
+| Doc | Purpose |
+|-----|---------|
+| [`docs/CURRENT_DEVELOPMENT.md`](docs/CURRENT_DEVELOPMENT.md) | What is implemented now (by phase). |
+| [`docs/ROADMAP.md`](docs/ROADMAP.md) | Snapshot, **roadmap**, **future dev scope**, completed milestones. |
+| [`docs/PHASE4_WORKFLOW.md`](docs/PHASE4_WORKFLOW.md) | Log → report → proposal → PR. |
+| [`docs/HANDOFF_PROTOCOL.md`](docs/HANDOFF_PROTOCOL.md) | Handoff packet protocol. |
+| [`docs/TEMPERATURE_LAYER.md`](docs/TEMPERATURE_LAYER.md) | Temperature layer. |
+| [`docs/POLICY_CHANGE_PLAYBOOK.md`](docs/POLICY_CHANGE_PLAYBOOK.md) | Policy changes + `resources/skills/`. |
+| [`docs/PROGRAMMATIC_API.md`](docs/PROGRAMMATIC_API.md) | Embeds: `lib/` exports. |
+| [`docs/PUBLISHING_NPM.md`](docs/PUBLISHING_NPM.md) | npm publishing. |
 
 ## Goals
 
@@ -44,9 +60,3 @@ This folder is designed to be vendored into other repos.
 - Binary: `superskill` (example: `npx @nareshdama/superskill-policy-engine compile-prompt ...`)
 - Smoke check: `npm run smoke` (from package root)
 - Unit tests: `npm test`
-
-## Status
-
-**Phase 1 is complete** for the policy CLI: resolve, route, validate/write handoff, compile prompts. The CLI does not call model APIs; it emits settings and validated artifacts for runners.
-
-See `docs/ROADMAP.md` for Phase 2+ milestones (**Phase 5** adds tests, `docs/PROGRAMMATIC_API.md`, and `validate-proposal`). **Phase 4** (outcome logging, `outcomes-report`, human-reviewed proposals) is described in `docs/PHASE4_WORKFLOW.md` and `cli/README.md`.

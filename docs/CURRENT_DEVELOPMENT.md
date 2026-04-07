@@ -1,5 +1,24 @@
 # Current development
 
+This file is the **implementation snapshot** for the Superskill policy engine: what exists in the repo *today*, grouped by roadmap phase. For **planned work**, see [`ROADMAP.md`](ROADMAP.md) (snapshot table + future scope). **Source:** [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill).
+
+## Documentation set (current)
+
+| Doc | Role |
+|-----|------|
+| **This file** | Implemented behavior by phase; CLI and library pointers. |
+| [`ROADMAP.md`](ROADMAP.md) | Completed milestones, documentation index, **future development scope**. |
+| [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Handoff JSON protocol. |
+| [`TEMPERATURE_LAYER.md`](TEMPERATURE_LAYER.md) | Temperature and scenario mapping. |
+| [`PHASE4_WORKFLOW.md`](PHASE4_WORKFLOW.md) | Outcome logging → report → proposal → human PR. |
+| [`POLICY_CHANGE_PLAYBOOK.md`](POLICY_CHANGE_PLAYBOOK.md) | Policy edits and alignment with `resources/skills/`. |
+| [`PROGRAMMATIC_API.md`](PROGRAMMATIC_API.md) | Embeds: `lib/` exports. |
+| [`PUBLISHING_NPM.md`](PUBLISHING_NPM.md) | npm publish workflow. |
+| [`cli/README.md`](../cli/README.md) | CLI examples and flags. |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md) | Git workflow, dev setup, contributions. |
+| [`CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md) | Community code of conduct. |
+| [`SECURITY.md`](../SECURITY.md) | Vulnerability reporting. |
+
 ## Phase 1 (policy engine MVP) — implemented
 
 The CLI under `cli/` reads `superskill.yaml` and module policies. Implemented commands:

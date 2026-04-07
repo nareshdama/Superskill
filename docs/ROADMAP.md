@@ -1,5 +1,56 @@
 # Roadmap
 
+## Snapshot (April 2026)
+
+| Area | State |
+|------|--------|
+| **Phases 1–5** | **Baseline complete** — CLI, policies, runner helpers, handoff + trace, outcomes and human-reviewed proposals, tests, `validate-proposal`, [`PROGRAMMATIC_API.md`](PROGRAMMATIC_API.md). |
+| **Repository** | [github.com/nareshdama/Superskill](https://github.com/nareshdama/Superskill) |
+| **npm package** | `@nareshdama/superskill-policy-engine` — see [`PUBLISHING_NPM.md`](PUBLISHING_NPM.md) |
+| **Integration checks** | `npm test`, `npm run smoke` from package root |
+| **Non-goals** | No in-package model training; no silent writes to `policies/` or `superskill.yaml`; policy changes stay **human-reviewed** (PR-style). |
+
+## Documentation index
+
+| Doc | Purpose |
+|-----|---------|
+| [`CURRENT_DEVELOPMENT.md`](CURRENT_DEVELOPMENT.md) | What is implemented today (commands and APIs by phase). |
+| [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Handoff packet shape and usage. |
+| [`TEMPERATURE_LAYER.md`](TEMPERATURE_LAYER.md) | Temperature mapping and model-family behavior. |
+| [`PHASE4_WORKFLOW.md`](PHASE4_WORKFLOW.md) | Trace → report → proposal → PR loop. |
+| [`POLICY_CHANGE_PLAYBOOK.md`](POLICY_CHANGE_PLAYBOOK.md) | How to change policies safely; ties to `resources/skills/`. |
+| [`PROGRAMMATIC_API.md`](PROGRAMMATIC_API.md) | Embeds: exports from `lib/`. |
+| [`PUBLISHING_NPM.md`](PUBLISHING_NPM.md) | Publishing the package. |
+
+CLI command reference: [`cli/README.md`](../cli/README.md).
+
+Repository governance: [`CONTRIBUTING.md`](../CONTRIBUTING.md), [`CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md), [`SECURITY.md`](../SECURITY.md).
+
+## Future development scope
+
+Work below is **not committed dates** — it reflects likely direction and open follow-ups from Phases 4–5.
+
+### Near term (engineering backlog)
+
+- **CLI structure** — Large-scale extraction of command bodies from `cli/src/index.mjs` into per-command modules (shared limits already live in `cli/src/constants.mjs`; see [`cli/src/commands/README.md`](../cli/src/commands/README.md)).
+- **Proposal ergonomics** — Optional read-only **diff** of a proposal snapshot vs checked-in `policies/` (no auto-apply); complements `validate-proposal`.
+- **Tests and smoke** — Broader fixtures for edge-case output contracts and malformed trace windows; keep smoke fast, tests thorough.
+- **Documentation** — Keep [`CURRENT_DEVELOPMENT.md`](CURRENT_DEVELOPMENT.md) in sync when adding CLI flags or schema fields.
+
+### Medium term (embedder-driven)
+
+- **Contract validation** — Tighter heuristics or pluggable rules for `validate-output` where markdown shape varies by team; document trade-offs in [`CURRENT_DEVELOPMENT.md`](CURRENT_DEVELOPMENT.md).
+- **Continuity** — If runners need it: optional alignment of handoff `intent` / `task_id` with `resolve` input merging (today they surface under `continuity`; see `read-handoff` / [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md)).
+- **Trace robustness** — Document or helper patterns for multi-process environments (today: **single writer** recommended for JSONL).
+
+### Explicitly out of scope (unless product expands)
+
+- Hosted trace ingestion, multi-tenant analytics, or sync-from-cloud policies.
+- Automatic optimization of policies or online learning from traces.
+- Replacing human PR review for policy changes.
+
+---
+
 ## Phase 1: Policy engine MVP
 
 **Status:** Implemented — CLI and policies in this repo; see `cli/README.md`, `docs/CURRENT_DEVELOPMENT.md`, and `npm run smoke`.
@@ -71,3 +122,9 @@ This phase is about **making the existing engine safer and easier to adopt** and
 
 - New consumers can integrate using docs + exports without reading the whole CLI source.
 - Proposal files remain review artifacts; CI can optionally validate structure without applying edits.
+
+---
+
+## Tracking
+
+When scope moves from **future** to **shipped**, update [`CURRENT_DEVELOPMENT.md`](CURRENT_DEVELOPMENT.md) and the **Snapshot** table at the top of this file.
