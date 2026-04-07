@@ -1,0 +1,53 @@
+# Copied from top-level `registry/retry-policy.yaml`.
+# Keep this module copy in sync if you change the outer repo policy.
+
+version: 1
+
+max_attempts:
+  default: 2
+  by_output_mode:
+    tool_args: 2
+    json_strict: 2
+    structured_text: 2
+    freeform: 2
+
+retry_triggers:
+  - id: invalid_json
+    description: "Response is not valid JSON when JSON is required."
+  - id: schema_violation
+    description: "JSON parses but fails schema validation."
+  - id: tool_args_invalid
+    description: "Tool arguments fail tool schema validation."
+  - id: missing_required_sections
+    description: "Output contract sections missing."
+  - id: hallucinated_files_or_commands
+    description: "Mentions files/commands that do not exist in repo context."
+  - id: missing_or_invalid_handoff_packet
+    description: "Required handoff packet missing or fails schema validation."
+
+retry_actions:
+  default:
+    - action: lower_temperature
+      value: 0.20
+      mode: cap_canonical
+    - action: tighten_output_mode
+      value: json_strict
+      when:
+        any_trigger: [invalid_json, schema_violation, missing_or_invalid_handoff_packet]
+    - action: enforce_output_contract
+      value: true
+    - action: require_evidence_for_claims
+      value: true
+
+tool_args_hardening:
+  on_retry:
+    - action: set_temperature
+      value: 0.0
+      if_supported: true
+    - action: require_schema_validation_before_execute
+      value: true
+
+notes:
+  - "If the model family does not support temperature, skip temperature actions."
+  - "If a retry still fails, ask 1 blocking question rather than rerolling."
+

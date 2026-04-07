@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://superskill.local/schemas/outcome-line.schema.json",
+  "title": "Superskill trace line — runner outcome (event=outcome)",
+  "description": "JSONL line appended to paths.artifacts.trace. Align retry_triggers with policies/retry-policy.yaml retry_triggers[].id.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["trace_version", "ts", "event", "payload"],
+  "properties": {
+    "trace_version": { "type": "integer", "const": 1 },
+    "ts": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ISO-8601 timestamp recommended"
+    },
+    "event": { "const": "outcome" },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["outcome_version", "status"],
+      "properties": {
+        "outcome_version": { "type": "integer", "const": 1 },
+        "status": {
+          "type": "string",
+          "enum": ["success", "failure", "partial"]
+        },
+        "failure_kind": {
+          "type": "string",
+          "description": "Short id, e.g. validate_output, tool_args, handoff_schema"
+        },
+        "retry_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "invalid_json",
+              "schema_violation",
+              "tool_args_invalid",
+              "missing_required_sections",
+              "hallucinated_files_or_commands",
+              "missing_or_invalid_handoff_packet"
+            ]
+          }
+        },
+        "policy_hints": {
+          "type": "object",
+          "description": "Optional free-form hints for humans distilling policy (no auto-apply)."
+        },
+        "handoff_task_id": { "type": "string" }
+      }
+    }
+  }
+}

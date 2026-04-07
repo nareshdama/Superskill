@@ -1,0 +1,8 @@
+{
+  "attempt": 1,
+  "success": false,
+  "triggers": ["invalid_json"],
+  "output_mode": "structured_text",
+  "omit_temperature": false,
+  "tool_args_retry": false
+}

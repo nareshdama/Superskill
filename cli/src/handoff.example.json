@@ -1,0 +1,25 @@
+{
+  "handoff_version": 1,
+  "task_id": "example-1",
+  "intent": "implement",
+  "environment": "terminal",
+  "entrypoints": [
+    { "path": "src/example.ts", "symbol": "main", "verified": false, "how_verified": "example only" }
+  ],
+  "work_items": [
+    {
+      "id": "WI-1",
+      "type": "investigation",
+      "goal": "Find real entrypoint and update packet",
+      "exact_todo": [
+        { "op": "investigate", "note": "Use rg to find the real entrypoint and mark verified pointers." }
+      ],
+      "acceptance": ["Entrypoints updated with verified=true and evidence"],
+      "verification": [{ "cmd": "rg \"main\\(\" -n src", "expected": "shows a real entrypoint" }],
+      "dependencies": [],
+      "risk": "low",
+      "constraints": ["do not edit code until entrypoints are verified"]
+    }
+  ]
+}
+

@@ -1,0 +1,6 @@
+{
+  "trace_version": 1,
+  "ts": "2026-04-06T12:00:00.000Z",
+  "event": "smoke_test",
+  "payload": { "note": "phase 3 smoke" }
+}

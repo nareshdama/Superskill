@@ -1,0 +1,69 @@
+# Copied from top-level `registry/output-policy.yaml`.
+# Keep this module copy in sync if you change the outer repo policy.
+
+version: 1
+
+defaults:
+  narration: minimal
+  forbid_preamble: true
+  forbid_marketing_tone: true
+  forbid_generic_advice: true
+  require_specifics:
+    file_paths: true
+    commands: true
+    assumptions: true
+  handoff_packet:
+    required_for_environments: ["terminal", "ide"]
+    schema: "schemas/handoff-schema.json"
+    protocol_doc: "docs/HANDOFF_PROTOCOL.md"
+
+contracts:
+  concise_engineering:
+    sections:
+      - id: changes
+        title: "What changed"
+        max_lines: 3
+      - id: verification
+        title: "Verification"
+        max_lines: 2
+      - id: risks
+        title: "Risks/assumptions"
+        max_lines: 3
+    formatting:
+      bullets: true
+      no_nested_bullets: true
+
+  review_findings_first:
+    sections:
+      - id: findings
+        title: "Findings"
+        max_lines: 12
+      - id: verification
+        title: "Verification"
+        max_lines: 2
+      - id: residual_risk
+        title: "Residual risk"
+        max_lines: 4
+    rules:
+      findings_first: true
+      include_severity: true
+
+by_scenario:
+  incident:
+    contract: concise_engineering
+    require_evidence_for_claims: true
+  security:
+    contract: review_findings_first
+    require_evidence_for_claims: true
+  normal:
+    contract: concise_engineering
+  brainstorming:
+    contract: concise_engineering
+    allow_multiple_options: true
+
+by_environment:
+  terminal:
+    require_handoff_packet: true
+  ide:
+    require_handoff_packet: true
+

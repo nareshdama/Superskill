@@ -1,0 +1,5 @@
+{
+  "command": "list_dir",
+  "args": ["."],
+  "timeout_ms": 5000
+}

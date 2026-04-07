@@ -1,0 +1,118 @@
+# Copied from top-level `registry/model-capabilities.yaml`.
+# Keep this module copy in sync if you change the outer repo policy.
+
+version: 1
+
+defaults:
+  supports:
+    temperature: true
+    top_p: true
+    seed: false
+    json_strict: false
+    tool_calls: false
+    reasoning_effort: false
+  parameter_ranges:
+    temperature: null
+    top_p: [0.0, 1.0]
+
+providers:
+  anthropic:
+    families:
+      default:
+        supports:
+          temperature: true
+          top_p: true
+          seed: false
+          json_strict: false
+          tool_calls: true
+          reasoning_effort: false
+        parameter_ranges:
+          temperature: [0.0, 1.0]
+
+  openai:
+    families:
+      sampling_chat:
+        supports:
+          temperature: true
+          top_p: true
+          seed: true
+          json_strict: true
+          tool_calls: true
+          reasoning_effort: false
+        parameter_ranges:
+          temperature: [0.0, 2.0]
+      reasoning:
+        supports:
+          temperature: false
+          top_p: false
+          seed: false
+          json_strict: true
+          tool_calls: true
+          reasoning_effort: true
+
+  azure_openai:
+    families:
+      sampling_chat:
+        supports:
+          temperature: true
+          top_p: true
+          seed: true
+          json_strict: true
+          tool_calls: true
+          reasoning_effort: false
+        parameter_ranges:
+          temperature: [0.0, 2.0]
+      reasoning:
+        supports:
+          temperature: false
+          top_p: false
+          seed: false
+          json_strict: true
+          tool_calls: true
+          reasoning_effort: true
+
+  gemini:
+    families:
+      default:
+        supports:
+          temperature: true
+          top_p: true
+          seed: false
+          json_strict: false
+          tool_calls: true
+          reasoning_effort: false
+        parameter_ranges:
+          temperature: [0.0, 2.0]
+      gemini_3:
+        supports:
+          temperature: true
+          top_p: true
+          seed: false
+          json_strict: false
+          tool_calls: true
+          reasoning_effort: false
+        parameter_ranges:
+          temperature: [0.0, 2.0]
+
+  bedrock:
+    families:
+      gateway:
+        supports:
+          temperature: null
+          top_p: null
+          seed: null
+          json_strict: null
+          tool_calls: null
+          reasoning_effort: null
+
+  nemo:
+    families:
+      default:
+        supports:
+          temperature: true
+          top_p: true
+          seed: true
+          json_strict: false
+          tool_calls: true
+          reasoning_effort: false
+

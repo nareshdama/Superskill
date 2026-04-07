@@ -1,0 +1,13 @@
+{
+  "trace_version": 1,
+  "ts": "2026-04-06T15:00:00.000Z",
+  "event": "outcome",
+  "payload": {
+    "outcome_version": 1,
+    "status": "failure",
+    "failure_kind": "validate_output",
+    "retry_triggers": ["missing_required_sections"],
+    "policy_hints": { "note": "smoke example — human reviews proposals only" },
+    "handoff_task_id": "example-1"
+  }
+}

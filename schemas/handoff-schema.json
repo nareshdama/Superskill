@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "superskills://Superskill/schemas/handoff-schema.json",
+  "title": "Superskill Agent Handoff Packet",
+  "type": "object",
+  "required": ["handoff_version", "task_id", "intent", "entrypoints", "work_items"],
+  "additionalProperties": false,
+  "properties": {
+    "handoff_version": { "type": "integer", "const": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "intent": {
+      "type": "string",
+      "enum": ["implement", "debug", "review", "plan", "verify"]
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["terminal", "ide", "ci", "docs"]
+    },
+    "summary": { "type": "string" },
+    "entrypoints": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/entrypoint" }
+    },
+    "work_items": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/workItem" }
+    },
+    "observations": {
+      "type": "array",
+      "maxItems": 50,
+      "items": { "$ref": "#/$defs/observation" }
+    },
+    "open_questions": {
+      "type": "array",
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/openQuestion" }
+    }
+  },
+  "$defs": {
+    "filepath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^\\r\\n]+$"
+    },
+    "entrypoint": {
+      "type": "object",
+      "required": ["path", "verified"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/filepath" },
+        "symbol": { "type": "string" },
+        "line": { "type": "integer", "minimum": 1 },
+        "verified": { "type": "boolean" },
+        "how_verified": { "type": "string" }
+      }
+    },
+    "workItem": {
+      "type": "object",
+      "required": ["id", "type", "goal", "exact_todo", "acceptance", "verification", "constraints"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": ["code_change", "test", "doc", "investigation", "refactor"]
+        },
+        "goal": { "type": "string", "minLength": 1 },
+        "exact_todo": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 25,
+          "items": { "$ref": "#/$defs/todoOp" }
+        },
+        "acceptance": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "verification": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": { "$ref": "#/$defs/verification" }
+        },
+        "dependencies": {
+          "type": "array",
+          "maxItems": 12,
+          "items": { "$ref": "#/$defs/dependency" }
+        },
+        "risk": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "todoOp": {
+      "type": "object",
+      "required": ["op"],
+      "additionalProperties": false,
+      "properties": {
+        "op": { "type": "string", "enum": ["read", "edit", "add", "delete", "run", "investigate"] },
+        "path": { "$ref": "#/$defs/filepath" },
+        "symbol": { "type": "string" },
+        "line": { "type": "integer", "minimum": 1 },
+        "note": { "type": "string" },
+        "cmd": { "type": "string" },
+        "expected": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "op": { "const": "run" } }, "required": ["op"] },
+          "then": { "required": ["cmd"] }
+        },
+        {
+          "if": {
+            "properties": { "op": { "enum": ["read", "edit", "add", "delete"] } },
+            "required": ["op"]
+          },
+          "then": { "required": ["path"] }
+        }
+      ]
+    },
+    "verification": {
+      "type": "object",
+      "required": ["cmd"],
+      "additionalProperties": false,
+      "properties": {
+        "cmd": { "type": "string", "minLength": 1 },
+        "expected": { "type": "string" }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["kind", "what"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["missing_context", "external_system", "approval_needed", "unknown_behavior"]
+        },
+        "what": { "type": "string", "minLength": 1 },
+        "next_read": { "type": "string" }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "required": ["fact", "verified"],
+      "additionalProperties": false,
+      "properties": {
+        "fact": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "string" },
+        "verified": { "type": "boolean" }
+      }
+    },
+    "openQuestion": {
+      "type": "object",
+      "required": ["question", "blocking"],
+      "additionalProperties": false,
+      "properties": {
+        "question": { "type": "string", "minLength": 1 },
+        "blocking": { "type": "boolean" }
+      }
+    }
+  }
+}
+

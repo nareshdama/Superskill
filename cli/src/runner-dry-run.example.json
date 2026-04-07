@@ -1,0 +1,23 @@
+{
+  "resolve_input": {
+    "environment": "terminal",
+    "scenario": "normal",
+    "output_mode": "structured_text",
+    "provider": "openai",
+    "model_family": "sampling_chat"
+  },
+  "compile": {
+    "provider": "openai",
+    "environment": "terminal",
+    "intent": "implement",
+    "scenario": "normal"
+  },
+  "retry_context": {
+    "attempt": 1,
+    "success": false,
+    "triggers": ["invalid_json"],
+    "output_mode": "structured_text",
+    "omit_temperature": false,
+    "tool_args_retry": false
+  }
+}

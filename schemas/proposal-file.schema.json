@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://superskill.local/schemas/proposal-file.schema.json",
+  "title": "Superskill proposal snapshot (YAML as JSON)",
+  "description": "Validates parsed proposal files under .superskill/proposals/*.yaml emitted by outcomes-report --write-proposal. Human-edited files may add fields; additionalProperties allowed at root.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "summary",
+    "how_to_apply",
+    "suggested_intent_rules",
+    "suggested_scenario_caps",
+    "suggested_capability_flags",
+    "suggested_output_contracts"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ISO-8601 timestamp string (quoted in YAML source)"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_outcome_events",
+        "outcome_skipped_invalid_payload",
+        "parse_errors_in_window",
+        "by_event",
+        "by_status",
+        "by_failure_kind",
+        "retry_trigger_counts"
+      ],
+      "properties": {
+        "total_outcome_events": { "type": "integer", "minimum": 0 },
+        "outcome_skipped_invalid_payload": { "type": "integer", "minimum": 0 },
+        "parse_errors_in_window": { "type": "integer", "minimum": 0 },
+        "by_event": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "by_status": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "by_failure_kind": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "retry_trigger_counts": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+      },
+      "additionalProperties": true
+    },
+    "how_to_apply": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "suggested_intent_rules": { "type": "array" },
+    "suggested_scenario_caps": { "type": "array" },
+    "suggested_capability_flags": { "type": "array" },
+    "suggested_output_contracts": { "type": "array" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,16 @@
+# Example proposal file that passes `validate-proposal` (schemas/proposal-file.schema.json).
+generated_at: "2026-01-01T00:00:00.000Z"
+summary:
+  total_outcome_events: 0
+  outcome_skipped_invalid_payload: 0
+  parse_errors_in_window: 0
+  by_event: {}
+  by_status: {}
+  by_failure_kind: {}
+  retry_trigger_counts: {}
+how_to_apply:
+  - Edit policies under policies/ in a branch; open a PR.
+suggested_intent_rules: []
+suggested_scenario_caps: []
+suggested_capability_flags: []
+suggested_output_contracts: []

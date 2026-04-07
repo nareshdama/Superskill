@@ -1,0 +1,115 @@
+# Copied from top-level `registry/temperature-policy.yaml`.
+# Keep this module copy in sync if you change the outer repo policy.
+#
+# Temperature policy layer (canonical base + scenario caps + provider mapping)
+
+version: 1
+
+canonical:
+  scale: "0.0-1.0"
+  source: "registry/skill-temperatures.yaml"
+
+layers:
+  order:
+    - base_from_subskill
+    - output_mode_overrides
+    - scenario_overrides
+    - user_overrides
+    - provider_mapping
+
+base_from_subskill:
+  default_temperature: 0.35
+
+output_mode_overrides:
+  tool_args:
+    cap: 0.20
+  json_strict:
+    cap: 0.20
+  structured_text:
+    cap: 0.30
+  freeform:
+    cap: null
+
+scenario_overrides:
+  incident:
+    cap: 0.25
+    floor: null
+  security:
+    cap: 0.25
+    floor: null
+  legal_compliance:
+    cap: 0.20
+    floor: null
+  migration:
+    cap: 0.20
+    floor: null
+  debugging:
+    cap: 0.45
+    floor: 0.25
+  architecture_tradeoffs:
+    cap: 0.55
+    floor: 0.35
+  brainstorming:
+    cap: 0.75
+    floor: 0.55
+  normal:
+    cap: null
+    floor: null
+
+user_overrides:
+  allow_override: true
+  clamp_to_canonical: true
+
+provider_mapping:
+  providers:
+    anthropic:
+      temperature_range: [0.0, 1.0]
+      default:
+        map_kind: identity
+      model_family_overrides: {}
+
+    openai:
+      temperature_range: [0.0, 2.0]
+      default:
+        map_kind: identity
+      model_family_overrides:
+        reasoning:
+          omit_temperature: true
+
+    azure_openai:
+      temperature_range: [0.0, 2.0]
+      default:
+        map_kind: identity
+      model_family_overrides:
+        reasoning:
+          omit_temperature: true
+
+    gemini:
+      temperature_range: [0.0, 2.0]
+      default:
+        map_kind: identity
+      model_family_overrides:
+        gemini_3:
+          map_kind: fixed
+          fixed_value: 1.0
+
+    bedrock:
+      temperature_range: null
+      default:
+        map_kind: identity
+      model_family_overrides:
+        gateway:
+          omit_temperature_if_unsupported: true
+
+    nemo:
+      temperature_range: null
+      default:
+        map_kind: identity
+      model_family_overrides: {}
+
+extras:
+  top_p:
+    default: null
+  seed:
+    default: null
+

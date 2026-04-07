@@ -1,0 +1,42 @@
+version: 1
+
+module:
+  name: Superskill
+  description: "Agent policy + handoff module for terminal/IDE workflows."
+
+defaults:
+  environment: terminal
+  scenario: normal
+  output_mode: structured_text
+  output_contract: concise_engineering
+  provider: openai
+  model_family: sampling_chat
+
+paths:
+  # Within the Superskill module.
+  policies:
+    temperature: "policies/temperature-policy.yaml"
+    capabilities: "policies/model-capabilities.yaml"
+    output: "policies/output-policy.yaml"
+    retry: "policies/retry-policy.yaml"
+    intent: "policies/intent-map.yaml"
+    prompts: "policies/prompt-templates.yaml"
+  schemas:
+    handoff: "schemas/handoff-schema.json"
+  docs:
+    protocol: "docs/HANDOFF_PROTOCOL.md"
+  artifacts:
+    handoff: ".superskill/handoff.json"
+    trace: ".superskill/trace.jsonl"
+
+integration:
+  # Canonical subskill temperatures live in the outer repo today.
+  # A consuming repo can point this to its own skill registry.
+  canonical_skill_temperatures: "../registry/skill-temperatures.yaml"
+
+precedence:
+  # Highest -> lowest.
+  - runtime_overrides
+  - user_overrides
+  - module_policies
+  - module_defaults

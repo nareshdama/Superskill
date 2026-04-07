@@ -1,0 +1,6 @@
+node_modules/
+.superskill/
+.env
+.env.*
+*.log
+.DS_Store

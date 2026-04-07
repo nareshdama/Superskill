@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://superskill.local/schemas/trace-line.schema.json",
+  "title": "Superskill trace JSONL line",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["trace_version", "ts", "event"],
+  "properties": {
+    "trace_version": { "type": "integer", "const": 1 },
+    "ts": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ISO-8601 timestamp or other monotonic string"
+    },
+    "event": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Event id, e.g. model_turn, tool_call, policy_resolve"
+    },
+    "payload": { "type": "object" }
+  }
+}

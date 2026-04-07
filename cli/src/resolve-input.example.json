@@ -1,0 +1,10 @@
+{
+  "environment": "terminal",
+  "canonical_temperature": 0.35,
+  "scenario": "debugging",
+  "output_mode": "structured_text",
+  "provider": "openai",
+  "model_family": "sampling_chat",
+  "allow_user_override": true,
+  "user_temperature": 0.3
+}

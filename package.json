@@ -1,0 +1,41 @@
+{
+  "name": "@nareshdama/superskill-policy-engine",
+  "version": "0.2.0",
+  "description": "Policy engine + handoff schema for multi-agent IDE/terminal workflows.",
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "superskill": "./cli/src/index.mjs"
+  },
+  "scripts": {
+    "smoke": "node scripts/smoke-phase1.mjs",
+    "test": "node --test tests/trace.test.mjs tests/outcome.test.mjs tests/proposal-validation.test.mjs",
+    "validate-proposal": "node cli/src/index.mjs validate-proposal"
+  },
+  "exports": {
+    ".": "./lib/index.mjs",
+    "./lib": "./lib/index.mjs"
+  },
+  "files": [
+    "README.md",
+    "superskill.yaml",
+    "cli/src/**",
+    "cli/README.md",
+    "lib/**",
+    "policies/**",
+    "schemas/**",
+    "docs/**",
+    "scripts/smoke-phase1.mjs",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "yaml": "^2.5.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

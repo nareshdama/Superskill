@@ -1,0 +1,4 @@
+# Missing required keys (fails validate-proposal)
+generated_at: "2026-01-01T00:00:00.000Z"
+summary:
+  total_outcome_events: 0

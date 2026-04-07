@@ -1,0 +1,78 @@
+# Copied from top-level `registry/intent-map.yaml`.
+# Keep this module copy in sync if you change the outer repo policy.
+
+version: 1
+
+defaults:
+  scenario: normal
+  output_mode: structured_text
+  output_contract: concise_engineering
+  subskill_id: null
+
+rules:
+  - id: tool_calling
+    when:
+      any_keywords: ["tool", "function call", "schema", "json", "structured output"]
+    set:
+      output_mode: tool_args
+      scenario: normal
+      subskill_id: prompting_structured_outputs
+
+  - id: migrations
+    when:
+      any_keywords: ["migration", "ddl", "schema change", "alter table", "backfill"]
+    set:
+      scenario: migration
+      output_mode: structured_text
+      subskill_id: sql_schema_migrations
+
+  - id: auth
+    when:
+      any_keywords: ["oauth", "oidc", "login", "token", "session", "authorization", "authz", "scope"]
+    set:
+      scenario: security
+      output_mode: structured_text
+      subskill_id: oauth_oidc_flows
+
+  - id: security_review
+    when:
+      any_keywords: ["threat model", "security review", "owasp", "ssrf", "injection", "exfiltration"]
+    set:
+      scenario: security
+      output_mode: structured_text
+      output_contract: review_findings_first
+      subskill_id: owasp_top_ten_practices
+
+  - id: debugging
+    when:
+      any_keywords: ["bug", "error", "stack trace", "exception", "fails", "regression", "flake"]
+    set:
+      scenario: debugging
+      output_mode: structured_text
+      subskill_id: bug_reproduction_steps
+
+  - id: code_review
+    when:
+      any_keywords: ["review", "code review", "pr review", "nit", "suggest changes"]
+    set:
+      scenario: normal
+      output_mode: structured_text
+      output_contract: review_findings_first
+      subskill_id: code_review_feedback
+
+  - id: brainstorming
+    when:
+      any_keywords: ["brainstorm", "ideas", "options", "name ideas", "copy variants"]
+    set:
+      scenario: brainstorming
+      output_mode: freeform
+      subskill_id: mvp_scope_tradeoffs
+
+  - id: planning
+    when:
+      any_keywords: ["plan", "roadmap", "milestones", "architecture options", "tradeoffs"]
+    set:
+      scenario: architecture_tradeoffs
+      output_mode: structured_text
+      subskill_id: adr_tradeoffs
+
